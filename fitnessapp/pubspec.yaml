@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
 
@@ -19,3 +20,8 @@ flutter:
   uses-material-design: true
   assets:
     - lib/icon/
+  fonts:
+    - family: TTNormsPro
+      fonts:
+        - asset: lib/fonts/TTNormsProBold.otf
+        - asset: lib/fonts/TTNormsProMedium.otf

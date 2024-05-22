@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class NavIconTheme {
-  static final ThemeData theme = ThemeData(
-    primarySwatch: Colors.teal,
-    iconTheme: const IconThemeData(size: 30),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
-    ),
-  );
+  static const double iconLabelFontSize = 14;
+  static const double iconSize = 30;
+  static const Color iconSelectedColor = Colors.teal;
+  static const Color iconNotSelectedColor = Colors.black;
 }

@@ -13,7 +13,7 @@ class FitnessApp extends StatelessWidget {
   // in case they ever need to be referenced
   const FitnessApp({Key? key}) : super(key: key);
 
-  // This widget is the root of the application
+  // This widget is the root of the application]
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,8 +21,9 @@ class FitnessApp extends StatelessWidget {
       // Theme/styling of the app
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.teal,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        fontFamily: 'TTNormsPro',
+        canvasColor: Colors.white,
+        
       ),
       // Set the content of the app to be the navigation wrapper
       home:  const NavigationWrapper(),

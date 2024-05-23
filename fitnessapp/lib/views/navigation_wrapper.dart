@@ -39,15 +39,17 @@ class _NavigationWrapper extends State<NavigationWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: _topBorder(),
-
-        child: NavigationBarTheme(
-          // sets the theme of the navigation bar
-          data: _navigationBarThemeData(),
-          
-          // actual navigation bar
-          child: _navigationBar(),
+      bottomNavigationBar: SizedBox(
+        height: 90,
+        child: Container(
+          decoration: _topBorder(),
+          child: NavigationBarTheme(
+            // sets the theme of the navigation bar
+            data: _navigationBarThemeData(),
+            
+            // actual navigation bar
+            child: _navigationBar(),
+          ),
         ),
       ),
 
@@ -64,7 +66,7 @@ class _NavigationWrapper extends State<NavigationWrapper> {
         border: Border(
           top: BorderSide(
             color: Colors.grey,
-            width: 1.0,
+            width: 0.5,
           )
         )
       );

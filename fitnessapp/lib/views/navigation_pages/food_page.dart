@@ -11,7 +11,6 @@ class FoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar is the top bar of the app
       // Body of the app
       body: Center(
         child: const Text("Food Page"),

@@ -11,12 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar is the top bar of the app
-      // appBar: AppBar(
-      //   // Title of the app
-      //   title: const Text("Fitness App"),
-      // ),
-      // Body of the app
+      // body of the app
       body: Center(
         child: const Text("Home Page"),
       ),

@@ -23,7 +23,12 @@ class FitnessApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'TTNormsPro',
         canvasColor: Colors.white,
-        
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 34,
+          ),
+        ),
       ),
       // Set the content of the app to be the navigation wrapper
       home:  const NavigationWrapper(),

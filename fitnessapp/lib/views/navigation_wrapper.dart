@@ -7,7 +7,6 @@ import 'package:fitness_app/views/navigation_pages/stats_page.dart';
 import 'package:fitness_app/views/navigation_pages/profile_page.dart';
 
 import 'package:fitness_app/themes/navigation_icon_themes.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 
 /*
 Navigation wrapper serves to define the underlying structure of the app
@@ -46,7 +45,6 @@ class _NavigationWrapper extends State<NavigationWrapper> {
           child: NavigationBarTheme(
             // sets the theme of the navigation bar
             data: _navigationBarThemeData(),
-            
             // actual navigation bar
             child: _navigationBar(),
           ),

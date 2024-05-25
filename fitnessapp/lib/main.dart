@@ -27,6 +27,11 @@ class FitnessApp extends StatelessWidget {
           titleTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 34,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+            size: 34,
           ),
         ),
       ),

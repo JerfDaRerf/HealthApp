@@ -67,7 +67,7 @@ class _WorkoutPage extends State<WorkoutPage>{
               dateSelector(),
               muscleDisplay(),
               Padding(padding: const EdgeInsets.only(top: 8.0), child: workoutTitle()),
-              startButtons(),
+              //startButtons(),
             ],
           )
         )

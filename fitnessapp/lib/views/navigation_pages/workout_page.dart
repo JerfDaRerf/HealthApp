@@ -66,13 +66,34 @@ class _WorkoutPage extends State<WorkoutPage>{
               ),
               dateSelector(),
               muscleDisplay(),
-              Padding(padding: const EdgeInsets.only(top: 8.0), child: workoutTitle()),
-              //startButtons(),
+              workoutTitle(),
+              Expanded(
+                child: SuggestedExercises()
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, bottom: 16.0),
+                child: (selectedDate < 0) ? previousStartButton() : startButtons(),
+              ),
             ],
           )
         )
       ),
      );
+  }
+
+  ElevatedButton previousStartButton(){
+    return ElevatedButton(
+      onPressed: () {
+        // Navigate to the workout page
+      },
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.add),
+          Text('Start'),
+        ],
+      ),
+    );
   }
 
   Container workoutTitle() {
@@ -151,14 +172,36 @@ class _WorkoutPage extends State<WorkoutPage>{
 
   Row startButtons(){
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            // Navigate to the workout page
-          },
-          child: const Text('Quick Start'),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigate to the workout page
+            },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.add),
+                Text('Quick Start'),
+              ],
+            ),
+          ),
         ),
+        const SizedBox(width: 8.0),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigate to the workout page
+            },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.lightbulb_outline),
+                Text('Suggested Start'),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
@@ -210,8 +253,25 @@ class _WorkoutPage extends State<WorkoutPage>{
             },
           ),
         ],
-      ),           
+      ),       
     );
 
+  }
+}
+
+
+class SuggestedExercises extends StatelessWidget {
+  final List<int> items = List<int>.generate(1000, (i) => i);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Workout ${items[index]}'),
+        );
+      },
+    );
   }
 }

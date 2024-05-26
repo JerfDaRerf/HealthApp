@@ -38,7 +38,13 @@ class _WorkoutPage extends State<WorkoutPage>{
         title: const Text('Workout'),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.navigation_rounded),
+            icon: const Icon(Icons.camera_alt_outlined),
+            onPressed: () {
+              // Navigate to the search page
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.pin_drop_outlined),
             onPressed: () {
               // Navigate to the search page
             },
@@ -55,17 +61,38 @@ class _WorkoutPage extends State<WorkoutPage>{
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0, top: 6.0), 
+                padding: const EdgeInsets.only(bottom: 8.0, top: 6.0), 
                 child: searchBar()
               ),
               dateSelector(),
               muscleDisplay(),
+              Padding(padding: const EdgeInsets.only(top: 8.0), child: workoutTitle()),
               startButtons(),
             ],
           )
         )
       ),
      );
+  }
+
+  Container workoutTitle() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        getWorkoutTitleBasedOnDate(selectedDate),
+        style: const TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  String getWorkoutTitleBasedOnDate(int date){
+    if(date < 0){
+      return "Workout history";
+    }
+    return "Suggested workout";
   }
 
   // This is used to display the search bar
@@ -91,33 +118,7 @@ class _WorkoutPage extends State<WorkoutPage>{
           return SearchBar(
             controller: controller,
       
-            elevation: const MaterialStatePropertyAll<double>(
-              2.0,
-            ),
-            shape: MaterialStatePropertyAll<OutlinedBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-            
-            constraints: const BoxConstraints(
-              minHeight: 50.0,
-              maxHeight: 50.0,
-            ),
-            backgroundColor: const MaterialStatePropertyAll<Color>(
-              Colors.white,
-            ),
-            surfaceTintColor: const MaterialStatePropertyAll<Color>(
-              Colors.white,
-            ),
-      
             hintText: 'Search workouts ... ',
-            hintStyle: const MaterialStatePropertyAll<TextStyle>(
-              TextStyle(
-                color: Colors.grey,
-                fontSize: 18.0,
-              )
-            ),
       
             leading: const Row(
               children: <Widget>[

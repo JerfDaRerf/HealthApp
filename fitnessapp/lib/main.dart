@@ -23,6 +23,7 @@ class FitnessApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'TTNormsPro',
         canvasColor: Colors.white,
+        
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             color: Colors.black,
@@ -32,6 +33,33 @@ class FitnessApp extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.black,
             size: 34,
+          ),
+        ),
+
+        searchBarTheme: SearchBarThemeData(
+          elevation: const MaterialStatePropertyAll<double>(
+            2.0,
+          ),
+          shape: MaterialStatePropertyAll<OutlinedBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          constraints: const BoxConstraints(
+            minHeight: 50.0,
+            maxHeight: 50.0,
+          ),
+          backgroundColor: const MaterialStatePropertyAll<Color>(
+            Colors.white,
+          ),
+          surfaceTintColor: const MaterialStatePropertyAll<Color>(
+            Colors.white,
+          ),
+          hintStyle: const MaterialStatePropertyAll<TextStyle>(
+            TextStyle(
+              color: Colors.grey,
+              fontSize: 18.0,
+            )
           ),
         ),
       ),

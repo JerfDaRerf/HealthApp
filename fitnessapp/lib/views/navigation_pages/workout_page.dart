@@ -58,24 +58,35 @@ class _WorkoutPage extends State<WorkoutPage>{
       body: SafeArea( 
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0, top: 6.0), 
-                child: searchBar()
+          child: Stack(
+            children: <Widget>[ 
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, top: 6.0), 
+                    child: searchBar()
+                  ),
+                  dateSelector(),
+                  muscleDisplay(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: workoutTitle(),
+                  ),
+                  Expanded(
+                    child: SuggestedExercises(),
+                  ),
+              
+                ],
               ),
-              dateSelector(),
-              muscleDisplay(),
-              workoutTitle(),
-              Expanded(
-                child: SuggestedExercises()
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 16.0),
-                child: (selectedDate < 0) ? previousStartButton() : startButtons(),
-              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: (selectedDate < 0) ? previousStartButton() : startButtons(),
+                ),
+              )
             ],
-          )
+          ) 
         )
       ),
      );
@@ -102,7 +113,7 @@ class _WorkoutPage extends State<WorkoutPage>{
       child: Text(
         getWorkoutTitleBasedOnDate(selectedDate),
         style: const TextStyle(
-          fontSize: 24.0,
+          fontSize: 28.0,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -265,13 +276,61 @@ class SuggestedExercises extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('Workout ${items[index]}'),
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 15.0,
+        mainAxisSpacing: 15.0,
+        childAspectRatio: 1.0,
+      ),
+      itemCount: 5,
+      itemBuilder: (context, index){
+        return Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            // border: Border.all(
+            //   color: Colors.grey,
+            //   width: 4.0,
+            // ),
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Stack(
+            children: <Widget>[ 
+              ClipRRect(
+                // borderRadius: BorderRadius.circular(20.0),
+                child: Image.asset(
+                  'lib/exercises/12501301-Weighted-Crunch-(behind-head)_Waist_360.gif'
+                ),
+              ),
+              const Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 14.0),
+                  child: Text(
+                    'Abs',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4.0, right: 4.0),
+                  child: Icon(
+                    Icons.info_outline_rounded,
+                    color: Colors.black.withOpacity(0.7),
+                  ),
+                ),
+              )
+            ]
+          ),
         );
-      },
+      }
     );
   }
 }

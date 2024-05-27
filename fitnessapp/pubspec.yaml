@@ -22,6 +22,7 @@ flutter:
   assets:
     - lib/icon/
     - lib/images/
+    - lib/exercises/
   fonts:
     - family: TTNormsPro
       fonts:

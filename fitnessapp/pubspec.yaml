@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.8
+  intl: ^0.17.0
   flutter:
     sdk: flutter
 
@@ -20,6 +21,8 @@ flutter:
   uses-material-design: true
   assets:
     - lib/icon/
+    - lib/images/
+    - lib/exercises/
   fonts:
     - family: TTNormsPro
       fonts:

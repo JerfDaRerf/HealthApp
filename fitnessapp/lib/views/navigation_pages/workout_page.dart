@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:fitness_app/views/workout_views/ongoing_workout_page.dart';
+
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key}) : super(key: key);
@@ -37,23 +39,10 @@ class _WorkoutPage extends State<WorkoutPage>{
       appBar: AppBar(
         title: const Text('Workout'),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.camera_alt_outlined),
-            onPressed: () {
-              // Navigate to the search page
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.pin_drop_outlined),
-            onPressed: () {
-              // Navigate to the search page
-            },
-          ),
+          cameraButton(),
+          gymLocationButton(),
         ],
-        backgroundColor: Colors.white,
       ),
-      
-      backgroundColor: Colors.white,
       
       body: SafeArea( 
         child: Padding(
@@ -73,11 +62,12 @@ class _WorkoutPage extends State<WorkoutPage>{
                     child: workoutTitle(),
                   ),
                   Expanded(
-                    child: SuggestedExercisesList(), //SuggestedExercisesGrid(),
+                    child: SuggestedExercisesList(),
                   ),
               
                 ],
               ),
+
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -90,6 +80,26 @@ class _WorkoutPage extends State<WorkoutPage>{
         )
       ),
      );
+  }
+
+  IconButton cameraButton() {
+    return IconButton(
+          icon: const Icon(Icons.camera_alt_outlined),
+          onPressed: () {
+            // Navigate to the search page
+            //WIP
+          },
+        );
+  }
+
+  IconButton gymLocationButton() {
+    return IconButton(
+      icon: const Icon(Icons.pin_drop_outlined),
+      onPressed: () {
+        // Navigate to the search page
+        //WIP
+      },
+    );
   }
 
   ElevatedButton previousStartButton(){
@@ -188,6 +198,10 @@ class _WorkoutPage extends State<WorkoutPage>{
           child: ElevatedButton(
             onPressed: () {
               // Navigate to the workout page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OngoingWorkoutPage()),
+              );  
             },
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -269,7 +283,6 @@ class _WorkoutPage extends State<WorkoutPage>{
 
   }
 }
-
 
 class SuggestedExercisesList extends StatelessWidget{
 
@@ -379,88 +392,4 @@ class SuggestedExercisesList extends StatelessWidget{
     );
   }
 
-}
-
-class SuggestedExercisesGrid extends StatelessWidget {
-  final List<int> items = List<int>.generate(1000, (i) => i);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 10.0,
-        mainAxisSpacing: 10.0,
-        childAspectRatio: 1.0,
-      ),
-      itemCount: 5,
-      itemBuilder: (context, index){
-        return Material(
-          elevation: 3.0,
-          borderRadius: BorderRadius.circular(10.0),
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 0.3,
-              ),
-              // color: const Color.fromRGBO(205, 232, 229, 0.6),
-              // color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Stack(
-              children: <Widget>[ 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: exerciseGIF(),
-                ),
-                //exerciseDescription(),
-                infoIcon()
-              ]
-            ),
-          ),
-        );
-      }
-    );
-  }
-
-  ClipRRect exerciseGIF() {
-    return ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.asset(
-                  'lib/exercises/12501301-Weighted-Crunch-(behind-head)_Waist_360.gif'
-                ),
-              );
-  }
-
-  Align exerciseDescription() {
-    return const Align(
-      alignment: Alignment.bottomLeft,
-      child: Padding(
-        padding: EdgeInsets.only(left: 14.0),
-        child: Text(
-          'Abs',
-          style: TextStyle(
-            fontSize: 16.0,
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
-  
-  Align infoIcon() {
-    return const Align(
-      alignment: Alignment.topRight,
-      child: Padding(
-        padding: EdgeInsets.only(top: 4.0, right: 4.0),
-        child: Icon(
-          Icons.info_outline_rounded,
-          color: Colors.grey,
-        ),
-      ),
-    );
-  }
 }

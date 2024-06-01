@@ -97,6 +97,9 @@ class FitnessApp extends StatelessWidget {
             ),
           ),
         ),
+      
+        scaffoldBackgroundColor: Colors.white,
+        
       ),
       // Set the content of the app to be the navigation wrapper
       home:  const NavigationWrapper(),

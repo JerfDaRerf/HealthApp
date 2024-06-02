@@ -37,7 +37,7 @@ class _WorkoutPage extends State<WorkoutPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Workout'),
+        title: const Text('Workouts'),
         actions: <Widget>[
           cameraButton(),
           gymLocationButton(),

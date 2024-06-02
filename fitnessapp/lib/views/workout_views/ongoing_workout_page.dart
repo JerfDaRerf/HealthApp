@@ -58,7 +58,7 @@ class _OngoingWorkoutPage extends State<OngoingWorkoutPage> {
       leading: IconButton(
         icon: const ImageIcon(
           AssetImage('lib/icon/arrow_down.png'),
-          size: 16.0,
+          size: 18.0,
         ),
         onPressed: () {
           Navigator.pop(context);
@@ -70,7 +70,7 @@ class _OngoingWorkoutPage extends State<OngoingWorkoutPage> {
         'Log Workout',
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: FontWeight.w400,
         ),
       ),

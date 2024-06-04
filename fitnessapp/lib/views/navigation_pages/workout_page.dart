@@ -15,23 +15,6 @@ class _WorkoutPage extends State<WorkoutPage>{
   // This varialble 
   DateTime selectedDate = DateTime.now();
 
-  // This function is used to format the date
-  // It will return a string that will be displayed on the screen based on currentDate
-  // If the selectedDate is -1, 0, or 1, it will display the current word date
-  String formatText(int date) {
-    if (date == 0){
-      return "Today";
-    }
-    if (date == 1){
-      return "Tomorrow";
-    }
-    if (date == -1){
-      return "Yesterday";
-    }
-    DateTime dateTime = DateTime.now().add(Duration(days: date));
-    return "${DateFormat('EEE').format(dateTime)}, ${DateFormat('MMMM').format(dateTime)} ${dateTime.day}";
-  }
-
   // This widget is the root of the application
   @override
   Widget build(BuildContext context) {
@@ -57,6 +40,10 @@ class _WorkoutPage extends State<WorkoutPage>{
                     padding: const EdgeInsets.only(bottom: 8.0, top: 6.0), 
                     child: searchBar()
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 4.0),
+                  //   child: monthDisplay(),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                     child: dateSelector(),
@@ -250,42 +237,6 @@ class _WorkoutPage extends State<WorkoutPage>{
   // At a given date, the program should recommend a workout given on the user's perferences
   // For example, maybe for a given day, the user will be recommended to do a leg workout
   // Maybe on another day, it will be a chest workout
-  // Center dateSelector() {
-  //   return Center(
-  //     child: Row(
-  //       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: <Widget> [
-  //         // go one date back
-  //         IconButton(
-  //           icon: const Icon(Icons.arrow_back_ios),
-  //           onPressed: () {
-  //             setState(() {
-  //               selectedDate -= 1;
-  //             });
-  //           },
-  //         ),
-  //         Text(
-  //           formatText(selectedDate),
-  //           style: const TextStyle(
-  //             fontSize: 20.0,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //         // go one date forward
-  //         IconButton(
-  //           icon: const Icon(Icons.arrow_forward_ios),
-  //           onPressed: () {
-  //             setState(() {
-  //               selectedDate += 1;
-  //             });
-  //           },
-  //         ),
-  //       ],
-  //     ),       
-  //   );
-
-  // }
   Row dateSelector(){
     int currentDayOfWeek = selectedDate.weekday;
     DateTime sunday = selectedDate.subtract(Duration(days: currentDayOfWeek % 7));
@@ -435,6 +386,17 @@ class _WorkoutPage extends State<WorkoutPage>{
     );
   }
 
+  Text monthDisplay(){
+    return Text(
+      "${DateFormat('MMMM').format(selectedDate)} ${selectedDate.year}",
+      style: const TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+        color: Colors.grey, 
+      ),
+    );
+  }
+
   Color circleColorBasedOnDate(DateTime date){
     // If this date is the selected date
     DateTime todaysDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -448,17 +410,6 @@ class _WorkoutPage extends State<WorkoutPage>{
       return Colors.grey.withOpacity(0.7);
     }
     return Colors.transparent;
-    // if(selectedDate == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
-    //   return Colors.teal;
-    // }
-    // if(selectedDate % 7 == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
-    //   return Colors.teal.withOpacity(0.5);
-    // }
-    // int dayOfWeek = (indexDayOfWeek + 1 ) % 7;
-    // if(dayOfWeek == selectedDate % 7){
-    //   return Colors.grey.withOpacity(0.7);
-    // }
-    // return Colors.transparent;
   }
 
   Color textColorBasedOnDate(DateTime date){
@@ -470,19 +421,9 @@ class _WorkoutPage extends State<WorkoutPage>{
       return Colors.white;
     }
     return Colors.black;
-    // if((selectedDate - selectedDate % 7) == 0 
-    // && indexDayOfWeek == DateTime.now().weekday - 1 
-    // && dayOfWeek != selectedDate % 7){
-    //   return Colors.teal;
-    // }
-    // if(dayOfWeek == selectedDate % 7){
-    //   return Colors.white;
-    // }
-    // return Colors.black;
   }
 
 }
-
 
 
 class SuggestedExercisesList extends StatelessWidget{

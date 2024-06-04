@@ -267,7 +267,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 0));
                 });
               },
-              child: textDayColumn(days[0], weekDates[0], 6)
+              child: textDayColumn(days[0], weekDates[0])
             )
           ),
           Expanded(
@@ -278,7 +278,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 1));
                 });
               },
-              child: textDayColumn(days[1], weekDates[1], 0)
+              child: textDayColumn(days[1], weekDates[1])
             ),
           ),
           Expanded(
@@ -289,7 +289,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 2));
                 });
               },
-              child: textDayColumn(days[2], weekDates[2], 1)
+              child: textDayColumn(days[2], weekDates[2])
             )
           ),
           Expanded(
@@ -300,7 +300,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 3));
                 });
               },
-              child: textDayColumn(days[3], weekDates[3], 2)
+              child: textDayColumn(days[3], weekDates[3])
             )
           ),
           Expanded(
@@ -311,7 +311,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 4));
                 });
               },
-              child: textDayColumn(days[4], weekDates[4], 3)
+              child: textDayColumn(days[4], weekDates[4])
             )
           ),
           Expanded(
@@ -322,7 +322,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 5));
                 });
               },
-              child: textDayColumn(days[5], weekDates[5], 4)
+              child: textDayColumn(days[5], weekDates[5])
             )
           ),
           Expanded(
@@ -333,7 +333,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                   selectedDate = sunday.add(const Duration(days: 6));
                 });
               },
-              child: textDayColumn(days[6], weekDates[6], 5)
+              child: textDayColumn(days[6], weekDates[6])
             )
           ),
           Expanded(
@@ -354,7 +354,7 @@ class _WorkoutPage extends State<WorkoutPage>{
     );
   }
 
-  Column textDayColumn(String currentDayOfWeek, DateTime date, int indexDayOfWeek){
+  Column textDayColumn(String currentDayOfWeek, DateTime date){
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

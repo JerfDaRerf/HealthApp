@@ -13,7 +13,7 @@ class WorkoutPage extends StatefulWidget {
 class _WorkoutPage extends State<WorkoutPage>{
   
   // This varialble 
-  int selectedDate = 0;
+  DateTime selectedDate = DateTime.now();
 
   // This function is used to format the date
   // It will return a string that will be displayed on the screen based on currentDate
@@ -35,6 +35,8 @@ class _WorkoutPage extends State<WorkoutPage>{
   // This widget is the root of the application
   @override
   Widget build(BuildContext context) {
+    selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workouts'),
@@ -74,7 +76,7 @@ class _WorkoutPage extends State<WorkoutPage>{
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: (selectedDate < 0) ? previousStartButton() : startButtons(),
+                  child: (selectedDate.difference(DateTime.now()).inDays < 0) ? previousStartButton() : startButtons(),
                 ),
               )
             ],
@@ -132,8 +134,8 @@ class _WorkoutPage extends State<WorkoutPage>{
     );
   }
 
-  String getWorkoutTitleBasedOnDate(int date){
-    if(date < 0){
+  String getWorkoutTitleBasedOnDate(DateTime date){
+    if(selectedDate.difference(DateTime.now()).inDays < 0){
       return "Workout history";
     }
     return "Suggested workout";
@@ -285,11 +287,10 @@ class _WorkoutPage extends State<WorkoutPage>{
 
   // }
   Row dateSelector(){
-    DateTime now = DateTime.now();
-    int currentDayOfWeek = now.weekday;
-    DateTime sunday = now.subtract(Duration(days: currentDayOfWeek % 7));
+    int currentDayOfWeek = selectedDate.weekday;
+    DateTime sunday = selectedDate.subtract(Duration(days: currentDayOfWeek % 7));
     List<String> days = ["S", "M", "T", "W", "T", "F", "S"];
-    List<DateTime> weekDates = List.generate(7, (index) => sunday.add(Duration(days: index)).add(Duration(days: (selectedDate - selectedDate % 7))));
+    List<DateTime> weekDates = List.generate(7, (index) => sunday.add(Duration(days: index)));
 
     return Row(
         children: [
@@ -298,7 +299,7 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate -= 7;
+                  selectedDate = selectedDate.subtract(const Duration(days: 7));
                 });
               },
               child: const Icon(
@@ -312,10 +313,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate - (selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 0));
                 });
               },
-              child: textDayColumn(days[0], weekDates[0].day.toString(), 6)
+              child: textDayColumn(days[0], weekDates[0], 6)
             )
           ),
           Expanded(
@@ -323,10 +324,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (1 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 1));
                 });
               },
-              child: textDayColumn(days[1], weekDates[1].day.toString(), 0)
+              child: textDayColumn(days[1], weekDates[1], 0)
             ),
           ),
           Expanded(
@@ -334,10 +335,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (2 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 2));
                 });
               },
-              child: textDayColumn(days[2], weekDates[2].day.toString(), 1)
+              child: textDayColumn(days[2], weekDates[2], 1)
             )
           ),
           Expanded(
@@ -345,10 +346,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (3 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 3));
                 });
               },
-              child: textDayColumn(days[3], weekDates[3].day.toString(), 2)
+              child: textDayColumn(days[3], weekDates[3], 2)
             )
           ),
           Expanded(
@@ -356,10 +357,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (4 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 4));
                 });
               },
-              child: textDayColumn(days[4], weekDates[4].day.toString(), 3)
+              child: textDayColumn(days[4], weekDates[4], 3)
             )
           ),
           Expanded(
@@ -367,10 +368,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (5 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 5));
                 });
               },
-              child: textDayColumn(days[5], weekDates[5].day.toString(), 4)
+              child: textDayColumn(days[5], weekDates[5], 4)
             )
           ),
           Expanded(
@@ -378,10 +379,10 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate = selectedDate + (6 - selectedDate % 7);
+                  selectedDate = sunday.add(const Duration(days: 6));
                 });
               },
-              child: textDayColumn(days[6], weekDates[6].day.toString(), 5)
+              child: textDayColumn(days[6], weekDates[6], 5)
             )
           ),
           Expanded(
@@ -389,7 +390,7 @@ class _WorkoutPage extends State<WorkoutPage>{
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  selectedDate += 7;
+                  selectedDate = selectedDate.add(const Duration(days: 7));
                 });
               },
               child: const Icon(
@@ -402,7 +403,7 @@ class _WorkoutPage extends State<WorkoutPage>{
     );
   }
 
-  Column textDayColumn(String currentDayOfWeek, String date, int indexDayOfWeek){
+  Column textDayColumn(String currentDayOfWeek, DateTime date, int indexDayOfWeek){
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -419,14 +420,14 @@ class _WorkoutPage extends State<WorkoutPage>{
           height: 27, 
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: circleColorBasedOnDate(indexDayOfWeek),
+            color: circleColorBasedOnDate(date),
             shape: BoxShape.circle,
           ),
           child: Text(
-            date,
+            date.day.toString(),
             style: TextStyle(
               fontSize: 16.0,
-              color: textColorBasedOnDate(indexDayOfWeek),
+              color: textColorBasedOnDate(date),
             ),
           ),
         ),
@@ -434,31 +435,50 @@ class _WorkoutPage extends State<WorkoutPage>{
     );
   }
 
-  Color circleColorBasedOnDate(int indexDayOfWeek){
-    if(selectedDate == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
-      return Colors.teal;
-    }
-    if(selectedDate % 7 == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
-      return Colors.teal.withOpacity(0.5);
-    }
-    int dayOfWeek = (indexDayOfWeek + 1 ) % 7;
-    if(dayOfWeek == selectedDate % 7){
+  Color circleColorBasedOnDate(DateTime date){
+    // If this date is the selected date
+    DateTime todaysDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    if(date.difference(selectedDate).inDays == 0){
+      if (date.difference(todaysDate).inDays == 0){
+        return Colors.teal;
+      }
+      if (date.difference(todaysDate).inDays % 7 == 0){
+        return Colors.teal.withOpacity(0.5);
+      }
       return Colors.grey.withOpacity(0.7);
     }
     return Colors.transparent;
+    // if(selectedDate == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
+    //   return Colors.teal;
+    // }
+    // if(selectedDate % 7 == 0 && indexDayOfWeek == DateTime.now().weekday - 1){
+    //   return Colors.teal.withOpacity(0.5);
+    // }
+    // int dayOfWeek = (indexDayOfWeek + 1 ) % 7;
+    // if(dayOfWeek == selectedDate % 7){
+    //   return Colors.grey.withOpacity(0.7);
+    // }
+    // return Colors.transparent;
   }
 
-  Color textColorBasedOnDate(int indexDayOfWeek){
-    int dayOfWeek = (indexDayOfWeek + 1 ) % 7;
-    if((selectedDate - selectedDate % 7) == 0 
-    && indexDayOfWeek == DateTime.now().weekday - 1 
-    && dayOfWeek != selectedDate % 7){
+  Color textColorBasedOnDate(DateTime date){
+    DateTime todaysDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    if(date.difference(todaysDate).inDays == 0 && selectedDate.difference(todaysDate).inDays != 0){
       return Colors.teal;
     }
-    if(dayOfWeek == selectedDate % 7){
+    if(date.difference(selectedDate).inDays == 0){
       return Colors.white;
     }
     return Colors.black;
+    // if((selectedDate - selectedDate % 7) == 0 
+    // && indexDayOfWeek == DateTime.now().weekday - 1 
+    // && dayOfWeek != selectedDate % 7){
+    //   return Colors.teal;
+    // }
+    // if(dayOfWeek == selectedDate % 7){
+    //   return Colors.white;
+    // }
+    // return Colors.black;
   }
 
 }

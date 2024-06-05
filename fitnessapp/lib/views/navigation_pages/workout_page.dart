@@ -244,113 +244,113 @@ class _WorkoutPage extends State<WorkoutPage>{
     List<DateTime> weekDates = List.generate(7, (index) => sunday.add(Duration(days: index)));
 
     return Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = selectedDate.subtract(const Duration(days: 7));
-                });
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                size: 14.0,
-              ),
+      children: [
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = selectedDate.subtract(const Duration(days: 7));
+              });
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
+              size: 14.0,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 0));
-                });
-              },
-              child: textDayColumn(days[0], weekDates[0])
-            )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 0));
+              });
+            },
+            child: textDayColumn(days[0], weekDates[0])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 1));
+              });
+            },
+            child: textDayColumn(days[1], weekDates[1])
           ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 1));
-                });
-              },
-              child: textDayColumn(days[1], weekDates[1])
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 2));
+              });
+            },
+            child: textDayColumn(days[2], weekDates[2])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 3));
+              });
+            },
+            child: textDayColumn(days[3], weekDates[3])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 4));
+              });
+            },
+            child: textDayColumn(days[4], weekDates[4])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 5));
+              });
+            },
+            child: textDayColumn(days[5], weekDates[5])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = sunday.add(const Duration(days: 6));
+              });
+            },
+            child: textDayColumn(days[6], weekDates[6])
+          )
+        ),
+        Expanded(
+          flex: 1,
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                selectedDate = selectedDate.add(const Duration(days: 7));
+              });
+            },
+            child: const Icon(
+              Icons.arrow_forward_ios,
+              size: 14.0,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 2));
-                });
-              },
-              child: textDayColumn(days[2], weekDates[2])
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 3));
-                });
-              },
-              child: textDayColumn(days[3], weekDates[3])
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 4));
-                });
-              },
-              child: textDayColumn(days[4], weekDates[4])
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 5));
-                });
-              },
-              child: textDayColumn(days[5], weekDates[5])
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = sunday.add(const Duration(days: 6));
-                });
-              },
-              child: textDayColumn(days[6], weekDates[6])
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedDate = selectedDate.add(const Duration(days: 7));
-                });
-              },
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                size: 14.0,
-              ),
-            ),
-          ),
-        ],
+        ),
+      ],
     );
   }
 

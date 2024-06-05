@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'list_view_exercise_body.dart';
 import 'card_view_exercise_body.dart';
 
+import 'package:fitness_app/models/exercise_log_item_model.dart';
+import 'package:fitness_app/models/exercise_model.dart';
+
 class OngoingWorkoutPage extends StatefulWidget {
   const OngoingWorkoutPage({Key? key}) : super(key: key);
 
@@ -20,7 +23,11 @@ class _OngoingWorkoutPage extends State<OngoingWorkoutPage> {
   bool started = false;
   String output = 'Start';
   bool listView = false;
-
+  
+  List<ExerciseLogItem> exercises = [
+    ExerciseLogItem(currentExercise: Exercise(name: "Weighted Crunch", displayFilePath: "12501301-Weighted-Crunch-(behind-head)_Waist_360.gif", muscleGroups: ["Abs"])),
+    ExerciseLogItem(currentExercise: Exercise(name: "Weighted Crunch", displayFilePath: "12501301-Weighted-Crunch-(behind-head)_Waist_360.gif", muscleGroups: ["Abs"]))
+    ];
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
@@ -48,7 +55,7 @@ class _OngoingWorkoutPage extends State<OngoingWorkoutPage> {
     return Scaffold(
       appBar: ongoingWorkoutTopBar(context),
       body: SafeArea(
-        child: listView ? ListViewExerciseBody() : CardViewExerciseBody(),
+        child: listView ? ListViewExerciseBody(exerciseLog: exercises) : CardViewExerciseBody(exerciseLog: exercises),
       )
     );
   }
@@ -129,6 +136,7 @@ class _OngoingWorkoutPage extends State<OngoingWorkoutPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
+          // backgroundColor: Colors.teal,
         ),
         child: Text(
           output

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:fitness_app/views/workout_views/ongoing_workout_page.dart';
-
+import 'package:fitness_app/views/workout_views/ongoing_workout_warpper.dart';
+import 'package:fitness_app/models/exercise_log_item_model.dart';
+import 'package:fitness_app/models/exercise_model.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key}) : super(key: key);
@@ -75,12 +76,12 @@ class _WorkoutPage extends State<WorkoutPage>{
 
   IconButton cameraButton() {
     return IconButton(
-          icon: const Icon(Icons.camera_alt_outlined),
-          onPressed: () {
-            // Navigate to the search page
-            //WIP
-          },
-        );
+      icon: const Icon(Icons.camera_alt_outlined),
+      onPressed: () {
+        // Navigate to the search page
+        //WIP
+      },
+    );
   }
 
   IconButton gymLocationButton() {
@@ -191,7 +192,7 @@ class _WorkoutPage extends State<WorkoutPage>{
               // Navigate to the workout page
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OngoingWorkoutPage()),
+                MaterialPageRoute(builder: (context) => const OngoingWorkoutPage()),
               );  
             },
             child: const Row(
@@ -259,83 +260,13 @@ class _WorkoutPage extends State<WorkoutPage>{
             ),
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 0));
-              });
-            },
-            child: textDayColumn(days[0], weekDates[0])
-          )
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 1));
-              });
-            },
-            child: textDayColumn(days[1], weekDates[1])
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 2));
-              });
-            },
-            child: textDayColumn(days[2], weekDates[2])
-          )
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 3));
-              });
-            },
-            child: textDayColumn(days[3], weekDates[3])
-          )
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 4));
-              });
-            },
-            child: textDayColumn(days[4], weekDates[4])
-          )
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 5));
-              });
-            },
-            child: textDayColumn(days[5], weekDates[5])
-          )
-        ),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                selectedDate = sunday.add(const Duration(days: 6));
-              });
-            },
-            child: textDayColumn(days[6], weekDates[6])
-          )
-        ),
+        dateEntity(sunday, days, weekDates, 0),
+        dateEntity(sunday, days, weekDates, 1),
+        dateEntity(sunday, days, weekDates, 2),
+        dateEntity(sunday, days, weekDates, 3),
+        dateEntity(sunday, days, weekDates, 4),
+        dateEntity(sunday, days, weekDates, 5),
+        dateEntity(sunday, days, weekDates, 6),
         Expanded(
           flex: 1,
           child: GestureDetector(
@@ -352,6 +283,20 @@ class _WorkoutPage extends State<WorkoutPage>{
         ),
       ],
     );
+  }
+
+  Expanded dateEntity(DateTime sunday, List<String> days, List<DateTime> weekDates, int dayth) {
+    return Expanded(
+        flex: 1,
+        child: GestureDetector(
+          onTap: (){
+            setState(() {
+              selectedDate = sunday.add(Duration(days: dayth));
+            });
+          },
+          child: textDayColumn(days[dayth], weekDates[dayth])
+        )
+      );
   }
 
   Column textDayColumn(String currentDayOfWeek, DateTime date){

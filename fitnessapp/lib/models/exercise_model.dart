@@ -1,5 +1,6 @@
 class Exercise {
   String name;
   String displayFilePath;
-  Exercise({required this.name, required this.displayFilePath});
+  List<String> muscleGroups;
+  Exercise({required this.name, required this.displayFilePath, required this.muscleGroups});
 }

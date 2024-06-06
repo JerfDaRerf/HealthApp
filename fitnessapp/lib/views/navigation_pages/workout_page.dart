@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:fitness_app/views/workout_views/ongoing_workout_warpper.dart';
-import 'package:fitness_app/models/exercise_log_item_model.dart';
+import 'package:fitness_app/views/workout_views/ongoing_workout_wrapper.dart';
+import 'package:fitness_app/models/exercise_log_model.dart';
 import 'package:fitness_app/models/exercise_model.dart';
 
 class WorkoutPage extends StatefulWidget {

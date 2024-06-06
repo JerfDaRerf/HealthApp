@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_app/models/exercise_log_item_model.dart';
+import 'package:fitness_app/models/exercise_log_model.dart';
+import 'package:flutter/services.dart';
 
 
 class ListViewExerciseBody extends StatefulWidget {
-  final List<ExerciseLogItem> exerciseLog;
+  final ExerciseLog exerciseLog;
 
   ListViewExerciseBody({required this.exerciseLog});
 
@@ -12,9 +13,10 @@ class ListViewExerciseBody extends StatefulWidget {
 }
 
 class _ListViewExerciseBody extends State<ListViewExerciseBody> {
-  final List<ExerciseLogItem> exerciseLog;
+  final ExerciseLog exerciseLog;
   _ListViewExerciseBody({required this.exerciseLog});
   
+  double currentVolume = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
   Expanded exerciseLogDisplay() {
     return Expanded(
       child: ListView.builder(
-        itemCount: exerciseLog.length,
+        itemCount: exerciseLog.exercisesLogItemList.length,
         itemBuilder: (context, index) => 
         Padding(
           padding: const EdgeInsets.only(top : 8.0, bottom: 8.0),
@@ -62,17 +64,110 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
           padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
           child: setHeader(),
         ),
-        addSetButton(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: setDisplay(index),
+        ),
+        addSetButton(index),
       ],
     );
   }
 
-  SizedBox addSetButton(){
+  ListView setDisplay(int index){
+    return ListView.builder(
+        itemBuilder: (context, setNumber) => 
+          setRowDisplay(setNumber, index)
+        , 
+        itemCount: exerciseLog.exercisesLogItemList[index].sets, 
+        shrinkWrap: true, 
+        physics: const NeverScrollableScrollPhysics(),
+    );
+  }
+
+
+  Container setRowDisplay(int setNumber, int exerciseIndex){
+    return Container(
+      color: exerciseLog.exercisesLogItemList[exerciseIndex].completed[setNumber] ? const Color.fromARGB(255, 107, 218, 111) : Colors.white,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Center(child: Text((setNumber + 1).toString())),
+          ),
+          Expanded(
+            flex: 4,
+            child: Center(child: Text("Previous")),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(
+              child: TextField(
+              controller: exerciseLog.exercisesLogItemList[exerciseIndex].weightControllers[setNumber],
+              onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty){
+                    value = "0";
+                  }
+                  exerciseLog.exercisesLogItemList[exerciseIndex].weights[setNumber] = double.parse(value);
+                  currentVolume = exerciseLog.calculateVolume();
+                });
+              },
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+            )),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(child: TextField(
+              controller: exerciseLog.exercisesLogItemList[exerciseIndex].repControllers[setNumber],
+              onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty){
+                    value = "0";
+                  }
+                  exerciseLog.exercisesLogItemList[exerciseIndex].reps[setNumber] = int.parse(value);
+                  currentVolume = exerciseLog.calculateVolume();
+                });
+              },
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+            )),
+          ),
+          Expanded(
+            flex: 1,
+            child: Checkbox(
+              value: exerciseLog.exercisesLogItemList[exerciseIndex].completed[setNumber],
+              onChanged: (bool? value) {
+                setState(() {
+                  exerciseLog.exercisesLogItemList[exerciseIndex].completed[setNumber] = value!;
+                  currentVolume = exerciseLog.calculateVolume();
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox addSetButton(int index){
     return SizedBox(
       width: double.infinity,
       height: 35,
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: (){
+            setState((){
+              exerciseLog.exercisesLogItemList[index].addSet();
+            });
+          },
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
@@ -104,19 +199,44 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
       children: [
         Expanded(
           flex: 1,
-          child: Text('Set'),
+          child: Center(
+            child: Text(
+              'Set',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+          ),
         ),
         Expanded(
           flex: 4,
-          child: Text('Previous'),
+          child: Center(
+            child: Text(
+              'Previous',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Center(child: Text("LBS")),
+          child: Center(child: Text(
+            "LBS",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+            )
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Center(child: Text("Reps")),
+          child: Center(child: Text(
+            "Reps",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          )),
         ),
         Expanded(
           flex: 1,
@@ -133,7 +253,7 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              "lib/exercises/${exerciseLog[index].currentExercise.displayFilePath}",
+              "lib/exercises/${exerciseLog.exercisesLogItemList[index].currentExercise.displayFilePath}",
               width: 65,
               height: 65,
             ),
@@ -143,14 +263,14 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  exerciseLog[index].currentExercise.name,
+                  exerciseLog.exercisesLogItemList[index].currentExercise.name,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
-                  exerciseLog[index].currentExercise.muscleGroups.join(", "),
+                  exerciseLog.exercisesLogItemList[index].currentExercise.muscleGroups.join(", "),
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
@@ -204,8 +324,8 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget> [
         overviewElement("Duration", "3m 20s", flex : 2),
-        overviewElement("Volume", "2000 lbs", flex : 2),
-        overviewElement("Sets", "5", flex: 1),
+        overviewElement("Volume", "${currentVolume.round()} lbs", flex : 2),
+        overviewElement("Sets", exerciseLog.numSets().toString(), flex: 1),
         overviewElement("Calories", "300 kCal", flex : 2),
       ]
     );
@@ -237,7 +357,5 @@ class _ListViewExerciseBody extends State<ListViewExerciseBody> {
       ),
     );
   }
-
-
 
 }

@@ -98,6 +98,19 @@ class FitnessApp extends StatelessWidget {
           ),
         ),
       
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return const Color.fromARGB(255, 107, 218, 111);
+            }
+            return Colors.white;
+          }
+          ),
+          checkColor: MaterialStateProperty.all<Color>(
+            Colors.black,
+          ),
+        ),
+
         scaffoldBackgroundColor: Colors.white,
         
       ),
